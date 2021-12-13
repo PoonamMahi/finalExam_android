@@ -12,5 +12,22 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:textViewStyle">@style/myTextViewStyle</item>
+        <item name="materialButtonStyle">@style/myButtonStyle</item>
+    </style>
+
+    <style name="myTextViewStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor" >@color/lightgrey</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="myButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@color/grey</item>
+        <item name="rippleColor">@android:color/holo_red_dark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textColor">@color/darkGreen</item>
     </style>
 </resources>

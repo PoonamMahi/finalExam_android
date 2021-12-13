@@ -2,7 +2,10 @@ package com.example.finalexam_poonam;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int selectedValue;
     EditText customDie;
     List<Integer> list;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +55,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adp.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         dieType.setAdapter(adp); //set adapter to the spinner
 
+
+
+
         //set listener to the spinner and calling methods of it
         dieType.setOnItemSelectedListener(new OnItemSelectedListener(){
 
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,int arg2, long arg3) {
                 // TODO Auto-generated method stub
+                SharedPreferences prefs;
+                prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                SharedPreferences.Editor prefEditor = prefs.edit();
+                prefEditor.putString("savedValue",dieType.getSelectedItem().toString());
+                prefEditor.commit();
+
+                String savedValue=PreferenceManager
+                        .getDefaultSharedPreferences(getBaseContext())
+                        .getString("savedValue","");
+
+
                 dieType.setSelection(arg2); //by default selection of element in spinner
                 selectedDie=  list.get(arg2); //getting the selected element of the spinner
             }
