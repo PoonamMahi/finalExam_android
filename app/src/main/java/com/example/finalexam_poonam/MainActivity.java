@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int selectedValue;
     EditText customDie;
     List<Integer> list;
-
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +49,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         list.add(2);
         list.add(4);
 
+        prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences.Editor prefEditor = prefs.edit();
+        prefEditor.putString("savedValue",dieType.getSelectedItem().toString());
+        prefEditor.commit();
+
+//                String savedValue=PreferenceManager
+//                        .getDefaultSharedPreferences(getBaseContext())
+//                        .getString("savedValue","");
+
         //adding list to the arrayAdapter
         ArrayAdapter<Integer> adp=new ArrayAdapter<Integer>(this,
                 android.R.layout.simple_dropdown_item_1line, list);
         adp.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         dieType.setAdapter(adp); //set adapter to the spinner
-
-
-
 
         //set listener to the spinner and calling methods of it
         dieType.setOnItemSelectedListener(new OnItemSelectedListener(){
@@ -64,17 +70,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,int arg2, long arg3) {
                 // TODO Auto-generated method stub
-                SharedPreferences prefs;
-                prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                SharedPreferences.Editor prefEditor = prefs.edit();
-                prefEditor.putString("savedValue",dieType.getSelectedItem().toString());
-                prefEditor.commit();
-
-                String savedValue=PreferenceManager
-                        .getDefaultSharedPreferences(getBaseContext())
-                        .getString("savedValue","");
-
-
                 dieType.setSelection(arg2); //by default selection of element in spinner
                 selectedDie=  list.get(arg2); //getting the selected element of the spinner
             }
